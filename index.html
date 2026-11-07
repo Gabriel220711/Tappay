@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TapPay | Conecte-se</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #080b12;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+}
+
+.container {
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+.logo {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  margin-bottom: 8px;
+}
+
+.logo span {
+  color: #42d6a4;
+}
+
+.subtitle {
+  color: #929aaa;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+.profile {
+  margin-bottom: 28px;
+}
+
+.profile h2 {
+  font-size: 23px;
+  margin-bottom: 7px;
+}
+
+.profile p {
+  color: #929aaa;
+  font-size: 14px;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 17px;
+  border-radius: 13px;
+  border: 1px solid #252e3c;
+  background: #111824;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.link:hover {
+  background: #1c2937;
+  border-color: #42d6a4;
+  transform: translateY(-2px);
+}
+
+.pix {
+  background: #12372f;
+  border-color: #24785e;
+}
+
+.footer {
+  color: #687386;
+  font-size: 12px;
+  margin-top: 35px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="logo">Tap<span>Pay</span></div>
+  <p class="subtitle">Tudo conectado em um só lugar.</p>
+
+  <div class="profile">
+    <h2 id="nome">Nome da Empresa</h2>
+    <p>Conecte-se conosco!</p>
+  </div>
+
+  <div class="links" id="links"></div>
+
+  <div class="footer">
+    Powered by TapPay
+  </div>
+
+</div>
+
+<script>
+
+// PERSONALIZE OS DADOS DE CADA CLIENTE
+
+const empresa = {
+  nome: "Nome da Empresa",
+
+  whatsapp: "5511999999999",
+
+  instagram: "https://instagram.com/",
+
+  pix: "CHAVE_PIX_DA_LOJA",
+
+  wifiNome: "NOME_DA_REDE",
+
+  wifiSenha: "SENHA_DO_WIFI",
+
+  linkedin: "https://linkedin.com/",
+
+  site: "https://google.com/"
+};
+
+document.getElementById("nome").textContent = empresa.nome;
+
+const links = document.getElementById("links");
+
+function adicionar(texto, acao, classe = "") {
+  const botao = document.createElement("button");
+  botao.className = "link " + classe;
+  botao.textContent = texto;
+  botao.onclick = acao;
+  links.appendChild(botao);
+}
+
+function abrir(url) {
+  window.open(url, "_blank", "noopener,noreferrer");
+}
+
+async function copiar(texto, mensagem) {
+  try {
+    await navigator.clipboard.writeText(texto);
+    alert(mensagem);
+  } catch {
+    alert("Não foi possível copiar automaticamente.");
+  }
+}
+
+if (empresa.whatsapp) {
+  adicionar("💬 WhatsApp", () =>
+    abrir("https://wa.me/" + empresa.whatsapp)
+  );
+}
+
+if (empresa.instagram) {
+  adicionar("📸 Instagram", () =>
+    abrir(empresa.instagram)
+  );
+}
+
+if (empresa.pix) {
+  adicionar("💠 Copiar chave Pix", () =>
+    copiar(empresa.pix, "Chave Pix copiada!")
+  , "pix");
+}
+
+if (empresa.wifiNome && empresa.wifiSenha) {
+  adicionar("📶 Copiar senha do Wi-Fi", () =>
+    copiar(empresa.wifiSenha, "Senha do Wi-Fi copiada!")
+  );
+}
+
+if (empresa.linkedin) {
+  adicionar("💼 LinkedIn", () =>
+    abrir(empresa.linkedin)
+  );
+}
+
+if (empresa.site) {
+  adicionar("🌐 Nosso site", () =>
+    abrir(empresa.site)
+  );
+}
+
+</script>
+
+</body>
+</html>
